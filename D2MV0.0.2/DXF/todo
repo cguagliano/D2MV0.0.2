@@ -1,0 +1,27 @@
+//TODO --> 1 : REGLER CADRAGE + Calquer sur le décalage dans cadrer()
+//TODO --> 2 : Gestion OS (cross-compatibility check)
+- Arcs 
+- draw ELLIPSE
+- renommer
+
+*ecrire sur disque (fichier txt dans le jar) le denier repertoire ouvert, pour l'avoir au lancement
+
+*bug edition (desactiver)
+
+*pdt l'edition, empecher les touches I et D
+
+*dessin de Lignes permettre par click au lieu de / glisser-deposer
+
+*bug changement de couleur d'un layer -> change le carre 'By Layer' de la palette, 
+ alors qu'on ne devrait que voir la couleur du layer courant (non ?...) cf suivant...
+ 
+*on change la couleur du layer, on appuie sur le bouton selection (sur la palette), 
+ et on dessine une ligne. Son code couleur n'est pas BYLAYER (255) mais le meme 
+ que le code couleur du layer ... (normal ?...)
+ 
+*réparer la dimension du canvas au lancement + placement du splitpane
+
+*tester l'ouverture dans des onglets ...
+ 
+- UNDO / REDO des modification 
+
