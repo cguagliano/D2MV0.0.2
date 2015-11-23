@@ -20,7 +20,6 @@ For more information, contact us at: dxf2machine@gmail.com
 package ar.d2m.features;
 
 import java.util.HashSet;
-import java.util.Hashtable;
 
 /**
  * @author CGG

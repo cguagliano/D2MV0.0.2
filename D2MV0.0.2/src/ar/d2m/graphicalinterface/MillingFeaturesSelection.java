@@ -31,31 +31,23 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Hashtable;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ar.d2m.loader.D2MLoader;
 import fr.epsi.dxf.DXF_Loader;
 import fr.epsi.dxf.Graphics.DXF_Color;
 import fr.epsi.dxf.Graphics.myCanvas;
-import fr.epsi.dxf.Graphics.myToolBar;
-import ar.d2m.loader.*;
-//import fr.epsi.dxf.DXF_Loader;
-//import fr.epsi.dxf.Graphics.*;
+
 
 
 public class MillingFeaturesSelection extends JPanel implements ActionListener{
 	
-		//public int selectedIndex = 0;
-
 	   
-		public static final int changeColor = 100;
+		public static final int changeColor = 15;
 		public static final int toolNone = 0;
 
 		private static final long serialVersionUID = 1L;
@@ -69,6 +61,7 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 	    public static JButton azul=new JButton();
 	    public static JButton nada=new JButton();
 	    public int indice=0;
+		public int selectedColor;
 		public MillingFeaturesSelection(DXF_Loader dXF) {
 			colores.put(1,"Origen");
 			colores.put(3, "Taladrado");
@@ -77,7 +70,7 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 			colores.put(0,"Ningun Rasgo");
 			this.setLayout(new BorderLayout());
 			this.setPreferredSize(new Dimension(200, 20));
-			JPanel p = new JPanel(new GridLayout(0, 10));
+			JPanel p = new JPanel(new GridLayout(0, 5));
 			color.setText((String)colores.get(0));
 			rojo.setCursor(Cursor
 					.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -92,8 +85,10 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == rojo) {
 						color.setText((String) colores.get(1));
+						D2MLoader.DXF._jcc.changingColor=new Color(0xff, 0x00, 0x00);
 						D2MLoader.DXF._jcc.col.setBackground(new Color (0xff,0x00,0x00));
-						D2MLoader.DXF._typeOutil.selectedIndex=6;
+						D2MLoader.DXF._typeOutil.selectedIndex=changeColor;
+						selectedColor=1;
 				}}}
 			);
 			verde.setCursor(Cursor
@@ -108,9 +103,11 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == verde) {
 						color.setText((String) colores.get(3));
+						D2MLoader.DXF._jcc.changingColor=new Color(0x00, 0xff, 0x00);
 						D2MLoader.DXF._jcc.col.setBackground(new Color (0x00,0xff,0x00));
 						//D2MLoader.selected=D2MLoader.DXF._typeOutil.toolSel;
-						D2MLoader.DXF._typeOutil.selectedIndex=6;
+						D2MLoader.DXF._typeOutil.selectedIndex=changeColor;
+						selectedColor=3;
 							
 				}}}
 			);
@@ -126,8 +123,10 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == cian) {
 						color.setText((String) colores.get(4));
+						D2MLoader.DXF._jcc.changingColor=new Color(0x00, 0xff, 0xff);
 						D2MLoader.DXF._jcc.col.setBackground(new Color (0x00, 0xff, 0xff));
-						D2MLoader.DXF._typeOutil.selectedIndex=6;
+						D2MLoader.DXF._typeOutil.selectedIndex=changeColor;
+						selectedColor=4;
 				}}}
 			);
 			azul.setCursor(Cursor
@@ -142,8 +141,10 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == azul) {
 						color.setText((String) colores.get(5));
+						D2MLoader.DXF._jcc.changingColor=new Color(0x00, 0x00, 0xff);
 						D2MLoader.DXF._jcc.col.setBackground(new Color (0x00, 0x00, 0xff));
-						D2MLoader.DXF._typeOutil.selectedIndex=6;
+						D2MLoader.DXF._typeOutil.selectedIndex=changeColor;
+						selectedColor=5;
 				}}}
 			);
 			
@@ -159,8 +160,10 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == nada) {
 						color.setText((String) colores.get(0));
+						D2MLoader.DXF._jcc.changingColor=new Color(0xff, 0xff, 0xff);
 						D2MLoader.DXF._jcc.col.setBackground(new Color (0xff, 0xff, 0xff));
-						D2MLoader.DXF._typeOutil.selectedIndex=6;
+						D2MLoader.DXF._typeOutil.selectedIndex=changeColor;
+						selectedColor=0;
 				}}}
 			);
 			
@@ -192,33 +195,24 @@ public class MillingFeaturesSelection extends JPanel implements ActionListener{
 			this.add(p_current, BorderLayout.EAST);
 
 		}
-/*
 
-		public Color getColor() {
-			return col.getBackground();
-		}
-*/
 		
 		public void actionPerformed(ActionEvent a) {
 			col.setBackground(((JButton) a.getSource()).getBackground());
 			
 			setCursor(Cursor.getDefaultCursor());
-			D2MLoader.DXF._mc.setCursor(Cursor
-					.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-			//	D2MLoader.DXF._typeOutil.actionPerformed(a);
+			D2MLoader.DXF._mc.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 			boolean s = true;
 
 			
 
 				if (a.getActionCommand() == "nada") {
-					D2MLoader.DXF._mc.setCursor(Cursor
-							.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+					D2MLoader.DXF._mc.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 					D2MLoader.DXF._typeOutil.actionPerformed(a);
 					s = true;
 				}
 					if (a.getActionCommand() == "changeColor") {
-					D2MLoader.DXF._mc.setCursor(Cursor
-							.getPredefinedCursor(Cursor.HAND_CURSOR));
+					D2MLoader.DXF._mc.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 					D2MLoader.DXF._typeOutil.actionPerformed(a);
 					s = false;
 				}
